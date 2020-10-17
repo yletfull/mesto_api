@@ -20,11 +20,12 @@ const getCards = (req, res, next) => {
 
 const addCard = (req, res, next) => {
   const {
-    name, link, likes, createdAt,
+    name, link, createdAt,
   } = req.body;
   const owner = req.user._id;
+  const likes = 0;
   cards.create({
-    name, link, owner, likes, createdAt,
+    name, link, owner, likes , createdAt,
   })
     .then((card) => res.status(200).send({ card }))
     .catch((err) => {

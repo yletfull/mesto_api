@@ -2,6 +2,19 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
+
+const whitelist = ['http://localhost:8080'];
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
 
 const rateLimit = require('express-rate-limit');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -25,13 +38,9 @@ const app = express();
 
 app.use(helmet());
 app.use(limiter);
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('', timeLog);
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 app.use(requestLogger);
 app.post('/signin', celebrate({
   body: Joi.object().keys({
