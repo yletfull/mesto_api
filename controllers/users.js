@@ -23,7 +23,6 @@ const getUsersList = (req, res, next) => {
 const getUser = (req, res, next) => {
   users.findById(req.user._id)
     .then((user) => {
-      console.log(user)
       if (user) {
         res.status(200).send({ user });
       } else {

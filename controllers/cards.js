@@ -23,11 +23,11 @@ const addCard = (req, res, next) => {
     name, link, createdAt,
   } = req.body;
   const owner = req.user._id;
-  const likes = 0;
+  const likes = [];
   cards.create({
     name, link, owner, likes , createdAt,
   })
-    .then((card) => res.status(200).send({ card }))
+    .then((card) => cards.find(card).populate('owner').then((card) => res.send(card).catch((err) => {err.statusCode = 500; next(err)} )))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         err.statusCode = 400;

@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const whitelist = ['http://localhost:8080'];
 const corsOptions = {
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   origin(origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
@@ -13,7 +14,6 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 
 const rateLimit = require('express-rate-limit');
@@ -31,7 +31,7 @@ const {
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 1000,
 });
 
 const app = express();
