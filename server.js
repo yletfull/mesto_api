@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const path = require('path');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const { app } = require(path.join(__dirname, './app'));
 
 const mongooseConnection = () => {
