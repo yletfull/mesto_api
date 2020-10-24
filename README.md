@@ -96,4 +96,4 @@ V 1.0.0
 
 ## 6. Ссылки
 www.api.mesto-project.gq  
-www.mesto-project.gq
+https://www.mesto-project.gq/
